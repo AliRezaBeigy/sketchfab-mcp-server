@@ -29,7 +29,7 @@ export function registerDownloadTool(
         .string()
         .optional()
         .describe(
-          "Local directory or file path to save the downloaded file (will use temp directory if not specified)"
+          "Local directory to save the downloaded file into. The filename is generated automatically from the model name and ID. Defaults to the system temp directory."
         ),
     },
     async ({ modelId, format = "gltf", outputPath }) => {

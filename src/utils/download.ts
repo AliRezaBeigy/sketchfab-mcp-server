@@ -16,7 +16,8 @@ export function resolveSavePath(
   outputPath?: string
 ): string {
   const filename = `${sanitizeFilename(model.name)}_${modelId}.${format}`;
-  return outputPath ?? path.join(os.tmpdir(), filename);
+  const dir = outputPath ?? os.tmpdir();
+  return path.join(dir, filename);
 }
 
 export function saveDownloadedModel(
@@ -28,6 +29,7 @@ export function saveDownloadedModel(
 ): string {
   const savePath = resolveSavePath(model, modelId, format, outputPath);
   const saveDir = path.dirname(savePath);
+  fs.mkdirSync(saveDir, { recursive: true });
 
   if (isZipFile(modelData)) {
     const extractDir = path.join(
